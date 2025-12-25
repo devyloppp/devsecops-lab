@@ -12,12 +12,11 @@ permissions:
 jobs:
   devsecops:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v3
 
       ############################################
-      # 1. Analyse SAST CodeQL
+      # 1. Analyse SAST avec CodeQL
       ############################################
       - name: Init CodeQL
         uses: github/codeql-action/init@v3
@@ -26,14 +25,6 @@ jobs:
 
       - name: Run CodeQL
         uses: github/codeql-action/analyze@v3
-        continue-on-error: true
-
-      - name: Upload SARIF results
-        uses: github/codeql-action/upload-sarif@v3
-        if: always()
-        with:
-          sarif_file: results/python.sarif
-        continue-on-error: true
 
       ############################################
       # 2. Analyse sécurité Python avec Bandit
